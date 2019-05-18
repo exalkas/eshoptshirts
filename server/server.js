@@ -91,22 +91,6 @@ let storage = multer.diskStorage({
     // }
 });
 
-// DEFAULT 
-//if route cannot be found - works only in production
-
-if( process.env.NODE_ENV === 'production' ){ //if it's production environment
-    const path = require('path');
-    app.get('/*',(req,res)=>{
-        res.sendfile(path.resolve(__dirname,'../client','build','index.html')) //send file index.html
-    })
-}
-
-
-const port = process.env.PORT || 3002;
-app.listen(port,()=>{
-    console.log(`Our Server is Up and Running at ${port}`)
-})
-
 // //=================================
 // //             ADMIN UPLOADS
 // //=================================
@@ -1099,4 +1083,20 @@ app.post('/api/site/site_data',auth,admin,(req,res)=>{
             })
         }
     )
+})
+
+// DEFAULT 
+//if route cannot be found - works only in production
+
+if( process.env.NODE_ENV === 'production' ){ //if it's production environment
+    const path = require('path');
+    app.get('/*',(req,res)=>{
+        res.sendfile(path.resolve(__dirname,'../client','build','index.html')) //send file index.html
+    })
+}
+
+
+const port = process.env.PORT || 3002;
+app.listen(port,()=>{
+    console.log(`Our Server is Up and Running at ${port}`)
 })
