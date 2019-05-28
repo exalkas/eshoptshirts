@@ -1,0 +1,119 @@
+.page_cart {
+    min-height: 75vh;
+    width: 110rem;
+    margin: 0 auto;
+
+    @media only screen and (max-width: $bp-largest) {
+        width: 100%;
+    }
+}
+
+.page_cart [role="progressbar"] {
+    margin: auto;
+}
+
+.cart_progress {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.cart_header {
+    // padding-left:10rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+    font-size: 3rem; 
+    width: 110rem;
+}
+
+.cart_no_items {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.cart_no_items svg ,
+.cart_success svg {
+    font-size: 13rem;
+    color: #717171;
+}
+.cart_no_items,
+.cart_success {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #999592;
+}
+
+.user_cart {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.user_cart_sum {
+    font-size: 2rem;
+    text-transform: uppercase;
+    border: 1px solid #e7e7e7;
+    background: #f7f7f7;
+    padding: 2rem 3rem;
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.user_cart_nav {
+    display: flex;
+    justify-items: baseline;
+
+    font-size: 2rem;
+    text-transform: uppercase;
+    border: 1px solid #e7e7e7;
+    background: #f7f7f7;
+    padding: 2rem 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.user_product_block {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user_product_block .item {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user_product_block h4 {
+    align-items: start;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem; 
+    color: $color-grey-dark;
+}
+
+.user_product_block p {
+    text-align: left;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: $color-grey-dark-2;
+}    
+
+.user_cart .quantity-input__screen {
+    width: 7rem;
+    border: 1px solid $color-grey-light-2;
+}
+
+.user_cart .quantity {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    height: 1.5rem;
+}
+
+.user_cart .quantity :not(:last-child) {
+    margin-right: 1rem;
+}

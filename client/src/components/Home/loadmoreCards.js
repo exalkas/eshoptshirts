@@ -3,8 +3,8 @@ import CardBlockShop from '../../components/utils/card_block_shop';
 
 const LoadmoreCards = (props) => {
     return (
-        <div>
-            <div>
+        <div className="loadmorecards_container">
+            <div className="loadmorecards_products">
                 <CardBlockShop
                     grid={props.grid}
                     list={props.products}
@@ -19,9 +19,6 @@ const LoadmoreCards = (props) => {
                     </div>
                 :null
             }
-            
-
-    
         </div>
     );
 };

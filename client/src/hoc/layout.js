@@ -21,7 +21,7 @@ class Layout extends Component {
 
     render() {
         return (
-            <div>
+            <div className="layout">
                 <Header/>
                 <div className="page_container">
                     {this.props.children}

@@ -124,7 +124,7 @@ class ProductPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="product_detail_container">
                 {this.state.addSuccess ?
                     <CustomSnackbar
                         vertical= 'bottom'
@@ -155,11 +155,9 @@ class ProductPage extends Component {
                     this.props.products.prodDetail ? //if details are not empty
                     <div className="product_detail_wrapper">
                         <div className="left">
-                            <div style={{width:'500px'}}>
                                 <ProdImg //images
                                     detail={this.props.products.prodDetail}
                                 />
-                            </div>
                         </div>
                         <div className="right">
                             <ProductInfo //details

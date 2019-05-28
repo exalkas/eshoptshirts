@@ -219,8 +219,8 @@ class UserCart extends Component {
 
     render() {
         return (
-                <div>
-                    {this.state.loading ? <CircularProgress />:null}
+                <div className="page_cart">
+                   
                     {this.state.addSuccess ?
                     <CustomSnackbar
                         vertical= 'bottom'
@@ -230,11 +230,12 @@ class UserCart extends Component {
                         handleClose={()=> this.handleSnackbarClose()}
                         text={this.state.snackText}
                     />
-                    :null
-                }
-                    <h1 className="cart-header">My cart</h1>
+                        :null
+                    }   
+                    <h1 className="cart_header">My cart</h1>
                     
                     <div className="user_cart">
+                        {this.state.loading ? <div className="cart_progress"><CircularProgress /></div>:null}
                         {this.props.cart.cartDetails ?  
                         <UserProductBlock
                              products={this.state.products}
@@ -246,21 +247,18 @@ class UserCart extends Component {
                              onInputChange={(e,i)=> this.onInputChange(e,i)}
                         /> :null}
                         { this.state.showTotal ? //should we show total?
-                            <div>
-                                <div className="user_cart_sum">
-                                    <div>
-                                        Total amount: € {this.state.total}
-                                    </div>
+                            <div className="user_cart_sum">
+                                <div>
+                                    Total amount: € {this.state.total}
                                 </div>
                             </div>
-                            
                         :
                             this.showNoItemMessage() //no items in the cart
                         }
                     </div>
                     {
                         this.state.showTotal ? //show paypal when there are items in the cart
-                            <div className="user_cart_sum">
+                            <div className="user_cart_nav">
                                 <div className="continue-shopping">
                                     <MyButton 
                                         type="default"

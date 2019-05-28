@@ -45,7 +45,7 @@ const ProductInfo = (props) => {
 
     const detail = props.detail;
     return (
-        <div>
+        <div className="product_info">
             <h1>{detail.name}</h1>
             <p>
                 {detail.description}

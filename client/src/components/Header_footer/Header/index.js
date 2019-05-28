@@ -127,8 +127,8 @@ class Header extends Component {
                 <div className="container">
                     <div className="left">
                     <Link to="/">
-                        <div className="logo" style={{background:`url(${logo}) no-repeat center`}}>
-                            
+                        <div className="logo">
+                            <img src={logo} alt='Tshirts Eshop' href={<Link to="/"/>}/>
                         </div> 
                     </Link>                        
                     </div>

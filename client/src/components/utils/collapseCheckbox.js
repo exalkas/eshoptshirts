@@ -60,6 +60,7 @@ class CollapseCheckbox extends Component {
                             color="primary"
                             onChange={this.handleToggle(value._id)} //update state for the change
                             checked={this.state.checked.indexOf(value._id) !== -1}//change checkbox's state
+                            className="checkbox_item"
                         />
                     </ListItemSecondaryAction>
                 </ListItem>

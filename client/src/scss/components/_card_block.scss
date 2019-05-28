@@ -1,0 +1,67 @@
+/*============================
+        CARD BLOCK
+==============================*/
+
+.card_block {
+    margin: 11rem 0px;
+}
+
+.card_block .title {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 5rem;
+
+    @media only screen and (max-width: $bp-large) {
+        font-size: 4rem;
+    }
+}
+
+.card_block_shop {
+    width: 100%;
+}
+
+.card_block_shop .card_item_wrapper {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 2rem;
+
+        @media only screen and (max-width: $bp-small) {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            width: 100%;
+            width: 80%;
+        }
+}
+
+.continue-shopping {
+    float: left;
+    width:50%;
+}
+
+.to-checkout {
+    float: right;
+    width:50%;
+}
+
+.card_block_products {
+    display:flex;
+    flex-wrap: wrap;
+
+    @media only screen and (max-width: $bp-small) {
+       flex-direction: column;
+       align-content: center;
+    }
+}
+
+.card_block_products .card_item_wrapper {
+    @media only screen and (max-width: $bp-small) {
+        width: 80vw;
+        margin-bottom: 4rem;
+     }
+}
+
+.color-select, .size-select{
+    width: 100%;
+}

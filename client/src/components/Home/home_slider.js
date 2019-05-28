@@ -30,8 +30,8 @@ const HomeSlider = (props) => {
                     <div className="featured_image"
                         style={{
                             background:`url(${item.img})`,
-                            height:'91vh'
-                            //height:`${window.innerHeight}px`
+                            // height:'91vh'
+                            height:`${window.innerHeight}px`
                         }}
                         
                     >

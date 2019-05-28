@@ -222,7 +222,7 @@ class Shop extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div style={{clear:'both'}}>
+                            <div className="shop_products">
                                 <LoadmoreCards
                                     grid={this.state.grid} //send grid
                                     limit={this.state.limit} 

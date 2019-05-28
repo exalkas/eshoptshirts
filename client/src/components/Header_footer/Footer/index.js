@@ -13,7 +13,7 @@ const Footer = ({data}) => {console.log("Footer data= ",data);
     return (
         data.siteData && data.siteData.length>0 ?
         <footer className="bck_b_dark">
-            <div className="container">
+            <div className="footer_container">
                 <div className="logo">
                     TShirtShop2
                 </div>
@@ -66,7 +66,7 @@ const Footer = ({data}) => {console.log("Footer data= ",data);
                     <div className="left">
                         <h2>Be the first to know</h2>
                         <div>
-                            <div>
+                            <div className="footer_cta">
                             Get all the latest information on events, sales and offers.You can miss out.
                             </div>
                         </div>

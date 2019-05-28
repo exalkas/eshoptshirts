@@ -1,6 +1,8 @@
 // Renders products in cart
-import MyButton from '../utils/button';
 import React from 'react';
+
+import plus_icon from '../../Resources/svg/plus-4.svg';
+import minus_icon from '../../Resources/svg/minus-4.svg';
 
 const UserProductBlock = (props) => {
 
@@ -18,39 +20,28 @@ const UserProductBlock = (props) => {
             props.products.map((product,i)=>( //loop through products in cart
                 <div className="user_product_block" key={i}>
                     <div className="item">
-                        <div
-                            className="image"
+                        <div className="image"
                             style={{background:`url(${renderCartImage(product.image)}) no-repeat`}}
                         ></div>
                     </div>
                     <div className="item">
                         <h4>Name</h4>
-                        <div>
-                            {product.name} 
-                        </div>
+                        <p>{product.name}</p>
                     </div>
                     <div className="item">
                         <h4>Color</h4>
-                        <div>
-                            {product.color} 
-                        </div>
+                        <p>{product.color}</p>
                     </div>
                     <div className="item">
                         <h4>Size</h4>
-                        <div>
-                            {product.size} 
-                        </div>
+                        <p>{product.size}</p>
                     </div>
-
                     <div className="item">
                         <h4>Quantity</h4>
-                        <div>
-                            <MyButton
-                                type='simple'
-                                className="quantity-input__modifier quantity-input__modifier--left"
-                                text="+"
-                                runAction={() => props.plusButtonHandler(i)}
-                            />
+                        <div className="quantity">
+                            <div className="plus_button"  onClick={() => props.plusButtonHandler(i)}>
+                                <img src={plus_icon} className="plus_icon" alt=''/>
+                            </div>
                             <input 
                                 className="quantity-input__screen" 
                                 type="number" 
@@ -58,18 +49,14 @@ const UserProductBlock = (props) => {
                                 onChange={props.onInputChange}
                                 id={i}
                             />
-                            <MyButton
-                                type='simple'
-                                text="-"
-                                runAction={()=> props.minusButtonHandler(i)}
-                            />
+                            <div className="plus_button"  onClick={() => props.minusButtonHandler(i)}>
+                                <img src={minus_icon} className="minus_icon" alt=''/>
+                            </div>
                         </div>
                     </div>
                     <div className="item">
                         <h4>Price</h4>
-                        <div>
-                           € {product.price}
-                        </div>
+                        <p className="price">{product.price}€</p>
                     </div>
                     <div className="item btn">
                        <div className="cart_update_btn" //remove button. product is in the loop
@@ -85,35 +72,12 @@ const UserProductBlock = (props) => {
                     </div>
                 </div>
             ))
-
         :null
     )
 
     return ( 
-            <div>
-                {renderItems()}
-            </div>
+            renderItems()
         );
 };
-    // Pass product quantities to state
-    // componentDidMount(){
-    //     let arr=[];
-    //     this.props.products.map((item,i)=> arr[i]=item.quantity);
-    //     this.setState({quantities:arr});
-
-    //     console.log("product_block: props=",this.props);
-
-    //     console.log("product_block: quantities in state=",this.state.quantities);
-    // }
-
-    // static getDerivedStateFromProps(props,state){
-    //     let arr=[];
-    //     props.products.map((item,i)=> arr[i]=item.quantity);
-    //     this.setState({quantities:arr});
-
-    //     console.log("product_block: props=",props);
-
-    //     console.log("product_block: quantities in state=",this.state.quantities);
-    // }
 
 export default UserProductBlock;

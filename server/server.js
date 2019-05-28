@@ -1085,7 +1085,7 @@ app.post('/api/site/site_data',auth,admin,(req,res)=>{
     )
 })
 
-// DEFAULT 
+// DEFAULT - MUST BE AT THE END!
 //if route cannot be found - works only in production
 
 if( process.env.NODE_ENV === 'production' ){ //if it's production environment

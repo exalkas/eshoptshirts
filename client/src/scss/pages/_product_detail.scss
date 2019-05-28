@@ -1,0 +1,184 @@
+/*============================
+        PRODUCT DETAIL
+==============================*/
+
+.product_detail_container {
+    width: 100%;
+    min-height: 50vh;
+}
+.product_detail_wrapper {
+    display: flex;   
+    padding-top: 2rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        flex-direction: column;
+    }
+}
+
+.product_detail_wrapper .left{
+    width: 40%;
+
+    @media only screen and (max-width: $bp-largest) {
+        padding: 2rem;
+    }
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 0;
+        width: 80%;
+        margin: auto;
+    }
+}
+
+.product_detail_wrapper .right{
+    flex-grow: 1; 
+    min-height: 80rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        flex-grow: 0;
+        width: 80%;
+        margin: auto;
+    }
+}
+
+
+.product_detail_wrapper p {
+    font-size: 1.7rem;
+    font-family: Arial, Helvetica;
+    font-weight: lighter;
+}
+
+.product_detail_wrapper .product_tags {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.product_detail_wrapper .product_tags .tag {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.product_detail_wrapper .product_tags .tag svg {
+    font-size: 4.3rem;
+    color: #e4e4e4;
+    width: 5rem;
+}
+
+.product_detail_wrapper .product_tags .tag .tag_text {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    color: #999592;
+    padding-left: 2rem;
+}
+
+.product_actions {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    @media screen and (max-width: $bp-medium) {
+        align-items: center;
+    }
+}
+
+.quantity-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-input .simple_button {
+    line-height: 4rem;
+    width: 2rem;
+    font-size: 4rem;
+    margin: 1rem;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.quantity-input .quantity-input__screen {
+    width: 8rem;
+    cursor: pointer;
+    margin: 1rem;
+}
+
+.product_detail_wrapper .product_actions .price{
+    font-size: 4rem;
+    font-weight: 300;
+}
+.product_detail_wrapper .product_actions .cart {
+    width: 14.9rem;
+}
+
+
+
+
+
+.product_detail_wrapper .product_actions {
+    padding: 2rem 0px 3rem 0px;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.product_detail_wrapper .product_specifications .item{
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: #838383;
+}
+
+.product_detail_wrapper .product_image_container {
+    margin-top: 2rem;
+    padding-right: 7rem;
+
+    @media only screen and (max-width: $bp-medium){
+        padding: 0;
+    }
+}
+
+.product_detail_wrapper .main_pic {
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.product_detail_wrapper .main_pic div {
+    width: 100%;
+    height: 44.6rem;
+    border: 1px solid #d9d9d9;
+    background-size: contain !important;
+    background-position: center center !important;
+}
+
+.product_detail_wrapper .main_thumbs {
+
+    margin-top: 1rem;
+}
+
+.product_detail_wrapper .main_thumbs .thumb {
+    cursor: pointer;
+    height: 20rem;
+    width: 50%;
+    background-size: cover !important;
+    background-position: bottom center !important;
+    border: 1px solid #e8e8e8;
+    box-sizing: border-box;
+    float: left;
+}
+
+.paypal_button_container{
+    margin: 1rem 0px;
+}
+
+.page_top .container {
+    font-size: 2rem;
+    padding-top: 2rem;
+
+    @media only screen and (max-width: $bp-largest) {
+        padding: 2rem;
+    }
+}
+
+.product_info {
+    margin-top: 2rem;
+}
+.product_info p, .product_tags{
+    padding-top: 2rem;
+}

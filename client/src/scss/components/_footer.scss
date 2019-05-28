@@ -1,0 +1,73 @@
+/*============================
+            FOOTER
+==============================*/
+
+footer .footer_container{
+    width: 100%;
+}
+
+
+footer .logo {
+    text-align: center;
+    font-family: 'Monoton', cursive;
+    color: #ffffff;
+    font-size: 4rem;
+    padding: 1.1rem 0px;
+    border-bottom: 1px solid #4d4d4d;
+}
+
+footer .wrapper {
+    display: flex;
+    color: #828282;
+    padding-left: 2rem;
+
+
+    @media only screen and (max-width: $bp-medium) {
+        flex-direction: column;
+        font-size: 2rem;
+    }
+}
+
+footer .left,
+footer .right {
+    flex: 1;
+}
+
+footer .left h2{
+    @media only screen and (max-width: $bp-medium) {
+        font-size: 3rem;
+        text-align: center;
+    }
+}
+
+footer .business_nfo {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media only screen and (max-width: $bp-medium) {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+footer .business_nfo .tag {
+    flex-grow: 1;
+    position: relative;
+    width: 50%;
+    margin-bottom: 3rem;
+}
+footer .business_nfo .icon {
+    position: absolute;
+    font-size: 2.6rem;
+    top: 1rem;
+}
+footer .business_nfo .nfo {
+    padding-left: 4rem;
+}
+
+footer .footer_cta {
+    padding-bottom: 2rem;
+    @media only screen and (max-width: $bp-medium) {
+        text-align: center;
+    }
+}
