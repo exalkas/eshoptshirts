@@ -11,7 +11,7 @@ const UserProductBlock = (props) => {
         if(images && images.length > 0){
             return images[0].url
         } else {
-            return '/images/image_not_available.png'
+            return 'images/image_not_available.png'
         }
     }
 
@@ -58,13 +58,13 @@ const UserProductBlock = (props) => {
                         <h4>Price</h4>
                         <p className="price">{product.price}€</p>
                     </div>
-                    <div className="item btn">
+                    <div className="item_btn">
                        <div className="cart_update_btn" //remove button. product is in the loop
                             onClick={()=> props.updateItem(product.product_Id,product.size, product.color,product.quantity)}> 
                             Update
                        </div>
                     </div>
-                    <div className="item btn">
+                    <div className="item_btn">
                        <div className="cart_remove_btn" //remove button. product is in the loop
                             onClick={()=> props.removeItem(product.product_Id,product.size, product.color)}> 
                             Remove
