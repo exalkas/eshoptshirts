@@ -42,7 +42,7 @@ export function getCartItems(cartItems, userCart){
                                 id: response.data.find(product_details => product_details._id===element.product_Id).product_Id,
                                 name: response.data.find(product_details => product_details._id===element.product_Id).name,
                                 price: response.data.find(product_details => product_details._id===element.product_Id).price,
-                                image: response.data.find(product_details => product_details._id===element.product_Id).image,
+                                image: response.data.find(product_details => product_details._id===element.product_Id).images,
                                 size: element.size,
                                 color: element.color,
                                 quantity: element.quantity

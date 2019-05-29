@@ -9,9 +9,10 @@ const UserProductBlock = (props) => {
     //renders image for product or image not avail
     const renderCartImage = (images) => {
         if(images && images.length > 0){
+            console.log("product BLOCK: renderCartImage: URL=", images[0].url);
             return images[0].url
         } else {
-            return 'images/image_not_available.png'
+            return '/images/image_not_available.png'
         }
     }
 
