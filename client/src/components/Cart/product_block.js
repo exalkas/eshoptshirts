@@ -9,7 +9,7 @@ const UserProductBlock = (props) => {
     //renders image for product or image not avail
     const renderCartImage = (images) => {
         if(images && images.length > 0){
-            console.log("product BLOCK: renderCartImage: URL=", images[0].url);
+            // console.log("product BLOCK: renderCartImage: URL=", images[0].url);
             return images[0].url
         } else {
             return '/images/image_not_available.png'
@@ -61,13 +61,13 @@ const UserProductBlock = (props) => {
                     </div>
                     <div className="item_btn">
                        <div className="cart_update_btn" //remove button. product is in the loop
-                            onClick={()=> props.updateItem(product.product_Id,product.size, product.color,product.quantity)}> 
+                            onClick={()=> props.updateItem(product.id,product.size, product.color,product.quantity)}> 
                             Update
                        </div>
                     </div>
                     <div className="item_btn">
                        <div className="cart_remove_btn" //remove button. product is in the loop
-                            onClick={()=> props.removeItem(product.product_Id,product.size, product.color)}> 
+                            onClick={()=> props.removeItem(product.id,product.size, product.color)}> 
                             Remove
                        </div>
                     </div>

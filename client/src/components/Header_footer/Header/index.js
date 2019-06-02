@@ -53,7 +53,6 @@ class Header extends Component {
         })
     }
 
-
     /**
      * returns cart link with number of items in the cart
      */
@@ -65,16 +64,17 @@ class Header extends Component {
         //this.props.cart!=='undefined' && this.props.cart.cart
 
         console.log("Header index: Object.keys(this.props.cart).length=",Object.keys(this.props.cart).length);
+        console.log("Header index: Object.keys(this.props.cart)=",Object.keys(this.props.cart));
+        console.log("Header: this.props.cart.cart=",this.props.cart.cart);
         return (
             <div className="cart_link" key={i}>
-                <span>{ ("cart" in this.props.cart) && this.props.cart.cart.length>0 ?  this.props.cart.cart.length :0}</span> 
+                <span>{ ("cart" in this.props.cart) && typeof(this.props.cart.cart)!=='undefined' && this.props.cart.cart.length>0 ?  this.props.cart.cart.length :0}</span> 
                 <Link to={item.linkTo}>
                     {item.name}
                 </Link>
             </div>
         )
     }
-
 
     //handles all links and logout link as well
     defaultLink = (item,i) => (
@@ -91,7 +91,6 @@ class Header extends Component {
             {item.name}
         </Link>
     )
-
 
     showLinks = (type) =>{
         let list = [];
@@ -119,7 +118,6 @@ class Header extends Component {
             
         })
     }
-
 
     render() {
         return (

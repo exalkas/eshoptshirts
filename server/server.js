@@ -491,48 +491,55 @@ app.get('/api/cart/getCart',(req,res)=> {
 })
 
 //removes item from cart
-app.post('/api/cart/removeFromCart',(req,res)=>{
+app.post('/api/cart/removeFromCart',async (req,res)=>{
 
     let cartToken=req.cookies.etsc_id;
     let product=req.body;
 
     console.log("------------removeFromCart Begins----------------");
     
-    console.log("API addToCart: req.body=",product)
-    console.log("API addToCart: cartToken=",cartToken)
+    console.log("API removeFromCart: req.body=", product)
+    console.log("API removeFromCart: cartToken=", cartToken)
 
-    Cart.findOneAndUpdate(
-        {_id: cartToken }, //get the cart
-        { "$pull": //remove item from collection
-            { "products": {"product_Id":mongoose.Types.ObjectId(product.product_Id), "color":product.color, "size":product.size} } //get products' id from db 
-        },
-        { new: true },
-        (err,doc)=>{ //CB
+    try {
 
-            if (err) res.status(400).send(err);
+        const removed= await Cart.findOneAndUpdate(
+            {_id: cartToken }, //get the cart
+            { "$pull": //remove item from collection
+                { "products": {"product_Id":mongoose.Types.ObjectId(product.product_Id), "color":product.color, "size":product.size} } //get products' id from db 
+            },{new: true});
+            
+        const doc= await Cart.findOne({_id:cartToken});            
+        
+        console.log("API removeFromCart: PRODUCTS after update (doc)=", doc.products);
 
-            let cart = doc.products; //cart from db
-            let array = cart.map(item=>{ //loop through cart and return array with product ids
-                return mongoose.Types.ObjectId(item.product_Id)
-            });
+        let cart = doc.products; //cart from db
+        let array = cart.map(item=>{ //loop through cart and return array with product ids
+            return mongoose.Types.ObjectId(item.product_Id)
+        });
 
-            Products. //find products
+        let cartDetail={};
+
+        if (array.length > 0) {
+            cartDetail= await Products. //find products
             find({'_id':{ $in: array }}). //loop through array
-            populate('category'). //get brand and wood
-            populate('department').
-            exec((err,cartDetail)=>{ //run the query and return results
-                if (err) return res.status(400).send(err);
-                return res.status(200).json({
-                    cartDetail,
-                    cart
-                })
-            })
+            populate('category'). 
+            populate('department');
         }
-    )
+        
+        
+        return res.status(200).json({
+            cartDetail,
+            cart
+        })
+
+    } catch(err) {
+        if (err) res.status(400).send(err);
+    }
 });
 
 // Update cart Item
-app.post('/api/cart/updateCartItem',(req, res) => {
+app.post('/api/cart/updateCartItem',async (req, res) => {
 
     let cartToken=req.cookies.etsc_id;
     let product=req.body;
@@ -542,19 +549,20 @@ app.post('/api/cart/updateCartItem',(req, res) => {
     console.log("API updateCartItem: req.body=",product)
     console.log("API updateCartItem: cartToken=",cartToken)
 
-    Cart.findOneAndUpdate(
-        {_id: cartToken, "products.product_Id":mongoose.Types.ObjectId(product.product_Id), "products.color":product.color, "products.size":product.size}, //get the cart
-        { $set:{"products.$.quantity": product.quantity }},
-        {new: true},
-        (err,doc)=>{
-            if (err) res.status(400).send(err);
+    try {
+        const doc= await Cart.findOneAndUpdate(
+            {_id: cartToken, "products.product_Id":mongoose.Types.ObjectId(product.product_Id), "products.color":product.color, "products.size":product.size}, //get the cart
+            { $set:{"products.$.quantity": product.quantity }},
+            {new: true});
+        
+        console.log("updateCartItem: products=",doc);
 
-            let cart = doc.products;
+        const products=doc.products;
 
-            console.log("updateCartItem: cart=",cart);
-
-            res.status(200).json({cart});
-        })
+        res.status(200).json(products);
+    } catch (err) {
+        if (err) res.status(400).send(err);
+    }
 });
 
 //succesful buy

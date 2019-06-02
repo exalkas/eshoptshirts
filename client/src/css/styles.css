@@ -126,6 +126,9 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd; }
 
+#client-snackbar {
+  font-size: 2rem; }
+
 /*============================
             HEADER
 ==============================*/

@@ -55,8 +55,8 @@ class UserCart extends Component {
     //updates state after actions
     updateState(payload){
 
-        console.log("cart: this.props.cart.cartDetails=",this.props.cart);
-        this.setState({products:this.props.cart.cartDetails.map(element => element)});
+        console.log("cart: this.props.cart.cartDetail=",this.props.cart);
+        this.setState({products:this.props.cart.cartDetail.map(element => element)});
 
         console.log("cart.js: responseFromServer=",payload);
         console.log("cart.js: this.state.products=",this.state.products);
@@ -119,10 +119,10 @@ class UserCart extends Component {
     }
 
     //sets total. accepts cart
-    calculateTotal = (cartDetails) => {
+    calculateTotal = (cartDetail) => {
         let total = 0;
 
-        cartDetails.forEach(item=>{//loop through props
+        cartDetail.forEach(item=>{//loop through props
             total += item.price * item.quantity
         });
 
@@ -162,6 +162,8 @@ class UserCart extends Component {
 
     //Compares current state with props and returns true if no change
     compareProductQuantity(product){
+        console.log("compareProductQuantity: PRODUCT=",product);
+        console.log("compareProductQuantity:  this.props.cart.cart=", this.props.cart.cart);
         let result=false;
         this.props.cart.cart.forEach(item=>{
             if (item.product_Id===product.product_Id && 
@@ -184,7 +186,7 @@ class UserCart extends Component {
             quantity
         }
 
-        // console.log("cart: updatecart: product,quantity=",product.quantity);
+        console.log("cart: UPDATECART: product=",product);
 
         if (this.compareProductQuantity(product)) {
             this.setState({addSuccess:true,snackText:"There are no changes to submit!", snackType:"warning"});
@@ -236,7 +238,8 @@ class UserCart extends Component {
                     
                     <div className="user_cart">
                         {this.state.loading ? <div className="cart_progress"><CircularProgress /></div>:null}
-                        {this.props.cart.cartDetails ?  
+                        {/* {console.log("CART: PRODUCTS PASSED=",this.state.products)} */}
+                        {this.props.cart.cartDetail ?  
                         <UserProductBlock
                              products={this.state.products}
                              type="cart"
@@ -286,7 +289,7 @@ class UserCart extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user, //get user (includes cart) from state app
+        user : state.user, //get user (includes cart) from state app
         cart : state.cart
     }
 }

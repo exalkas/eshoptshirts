@@ -176,8 +176,8 @@ class Checkout extends Component {
             return;
         }
 
-        this.props.cart.cartDetails.forEach(item => {
-            console.log("checkout: calctotal: price=",this.props.cart.cartDetails.price);
+        this.props.cart.cartDetail.forEach(item => {
+            console.log("checkout: calctotal: price=",this.props.cart.cartDetail.price);
             price=item.price;
             total+=parseFloat(price.toFixed(2),10)*parseInt(item.quantity,10);
         });
@@ -377,7 +377,7 @@ class Checkout extends Component {
                         <div className="checkout_products">
                             <h1>Products</h1>
                             <RenderProducts 
-                                products={this.props.cart.cartDetails}
+                                products={this.props.cart.cartDetail}
                                 total={this.state.total}
                             />
                         </div>

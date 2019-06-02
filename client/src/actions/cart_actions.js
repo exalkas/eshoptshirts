@@ -39,7 +39,7 @@ export function getCartItems(cartItems, userCart){
 
                         userCart.forEach(element => { // build cart details with id and all details
                             tmpArr.push({
-                                id: response.data.find(product_details => product_details._id===element.product_Id).product_Id,
+                                id: response.data.find(product_details => product_details._id===element.product_Id)._id,
                                 name: response.data.find(product_details => product_details._id===element.product_Id).name,
                                 price: response.data.find(product_details => product_details._id===element.product_Id).price,
                                 image: response.data.find(product_details => product_details._id===element.product_Id).images,
@@ -48,17 +48,7 @@ export function getCartItems(cartItems, userCart){
                                 quantity: element.quantity
                             })
                         });
-
-                        // userCart.forEach(item=>{ //loop through user cart 
-                        //     response.data.forEach((k,i)=>{//loop through response from server
-                        //         if(item.id === k._id){ //if item in the user cart is in the server also
-                        //             response.data[i].quantity = item.quantity;//update quantity
-                        //         }
-                        //     })
-                        // })
-                        // console.log("action getCartItems: response.date type of=",typeof response.data);
                         console.log("action getCartItems: AFTER tmparr=",tmpArr);
-                        // return response.data;
                         return tmpArr;
                     })
                     .catch(error=>console.log("action getCartItems: error:",error));
@@ -87,9 +77,26 @@ export function removeCartItem(product){
     const request = axios.post(`${CART_SERVER}/removeFromCart`,product)
                     .then(response => {
                         console.log("action: removeCartItem: data.cart",response.data.cart);
-                        console.log("action: removeCartItem: data.cartdetails",response.data.cartDetails);
+                        console.log("action: removeCartItem: data.cartdetail",response.data.cartDetail);
 
-                        return response.data;
+                        let tmpArr=[];
+
+                        userCart.forEach(element => { // build cart details with id and all details
+                            tmpArr.push({
+                                id: response.data.find(product_details => product_details._id===element.product_Id)._id,
+                                name: response.data.find(product_details => product_details._id===element.product_Id).name,
+                                price: response.data.find(product_details => product_details._id===element.product_Id).price,
+                                image: response.data.find(product_details => product_details._id===element.product_Id).images,
+                                size: element.size,
+                                color: element.color,
+                                quantity: element.quantity
+                            })
+                        });
+                        console.log("action getCartItems: AFTER tmparr=",tmpArr);
+                        return tmpArr;
+
+                        
+                        // return response.data;
                     })
 
     return {
@@ -103,7 +110,7 @@ export function removeCartItem(product){
 export function updateCartItem(product){
 
     const request= axios.post(`${CART_SERVER}/updateCartItem`,product)
-                    .then(response => {return response.data})
+                    .then(response => response.data)
 
                     return {
                         type: UPDATE_CART_ITEM,
