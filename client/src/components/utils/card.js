@@ -15,6 +15,8 @@ class Card extends Component {
     state={
         size:'',
         color:'',
+        sizeID: '',
+        colorID: '',
         quantity:1,
         openAlert:false,
         addSuccess:false
@@ -37,8 +39,8 @@ addToCartHandler(id){
         {
             product_Id:id,
             quantity: this.state.quantity, 
-            size: this.state.size, 
-            color: this.state.color
+            size: this.state.sizeID, 
+            color: this.state.colorID
         })).then(this.setState({addSuccess:true}));
         
 }
@@ -71,7 +73,7 @@ addToCartHandler(id){
 
     render() {
         const props = this.props;
-        // console.log("Card.js: props=",props);
+        console.log("Card.js: props=",props);
         return (
             <div className={`card_item_wrapper ${props.grid}`}> {/**to choose how we render cards. rows or grid */}
                 <div>{this.state.addSuccess ? // Snackbar
@@ -104,7 +106,6 @@ addToCartHandler(id){
                 >  </div>
                     <div className="action_container">
                         <div className="tags">
-                            {/* <div className="brand">{props.brand.name}</div> */}
                             <div className="name">{props.name}</div>
                             <div className="price">{props.price}€</div>
                         </div>
@@ -169,7 +170,9 @@ addToCartHandler(id){
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        colors: state.products.colors,
+        size: state.products.size
     }
 }
 

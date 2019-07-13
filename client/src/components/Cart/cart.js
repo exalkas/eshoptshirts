@@ -52,18 +52,57 @@ class UserCart extends Component {
         }
     }
 
-    //updates state after actions
-    updateState(payload){
+    //sets total. accepts cart
+    calculateTotal = (cartDetail) => {
+        let total = 0;
 
-        console.log("cart: this.props.cart.cartDetail=",this.props.cart);
-        this.setState({products:this.props.cart.cartDetail.map(element => element)});
+        cartDetail.forEach(item=>{//loop through props
+            total += item.price * item.quantity
+        });
 
-        console.log("cart.js: responseFromServer=",payload);
-        console.log("cart.js: this.state.products=",this.state.products);
-        if(this.state.products.length > 0){//if there are products calc total
-            this.calculateTotal(this.state.products);
+        const finalNum=parseFloat(total.toFixed(2),10);
+
+        this.setState({//update state
+            total:finalNum,
+            showTotal: true
+        });
+    }
+
+    //Compares current state with props and returns true if no change
+    compareProductQuantity(product){
+        console.log("compareProductQuantity: PRODUCT=",product);
+        console.log("compareProductQuantity:  this.props.cart.cart=", this.props.cart.cart);
+        let result=false;
+        this.props.cart.cart.forEach(item=>{
+            if (item.product_Id===product.product_Id && 
+                item.size===product.size && 
+                item.color===product.color && 
+                item.quantity===product.quantity) 
+                result=true;
+        })
+        return result;
+    }
+
+    //finds index in an array
+    findIndex(obj, arr){
+
+        console.log("CART: FINDINDEX: ARR=", arr);
+        console.log("CART: FINDINDEX: obj=", obj);
+
+        let index=-1;
+
+        if (obj.id) {
+            
+            arr.forEach((item, i) => {
+                // console.log("CART: FIND INDEX: item.quantity=",item.quantity);
+                
+                console.log("CART: FINDINDEX: obj.id=", obj.id," item.product_Id=",item.product_Id, " i=",i);
+                
+                if (item.product_Id===obj.id) index=i;
+                // if (item.id === obj.product_Id) return i;
+            })
         }
-        this.setState({loading:false});
+        return index;
     }
 
     // Handle snackbar close
@@ -89,19 +128,6 @@ class UserCart extends Component {
         // console.log("cart: minusbuttonhandler: state=",this.state.products);
     }
 
-    //plus button handler
-    plusButtonHandler(i){
-        let products=[];
-
-        products=this.state.products;
-
-        products[i].quantity+=1;
-
-        this.setState({products});
-        
-        // console.log("cart: plusbuttonhandler: state products=",this.state.products);
-    }
-
     onInputChange(e){
 
         let products=[];
@@ -118,20 +144,32 @@ class UserCart extends Component {
         this.setState({products});
     }
 
-    //sets total. accepts cart
-    calculateTotal = (cartDetail) => {
-        let total = 0;
+    //plus button handler
+    plusButtonHandler(i){
+        let products=[];
 
-        cartDetail.forEach(item=>{//loop through props
-            total += item.price * item.quantity
-        });
+        products=this.state.products;
 
-        const finalNum=parseFloat(total.toFixed(2),10);
+        products[i].quantity+=1;
 
-        this.setState({//update state
-            total:finalNum,
-            showTotal: true
-        });
+        this.setState({products});
+        
+        // console.log("cart: plusbuttonhandler: state products=",this.state.products);
+    }
+
+    //removes Item from array
+    removeItemFromArray(index){
+        let products= this.state.products;
+
+        console.log("CART: REMOVEITEMFROMARRAY: products start=",products);
+
+        products.splice(index,1);
+
+        console.log("CART: REMOVEITEMFROMARRAY: products AFTER SLICE=",products);
+
+        this.setState({products});
+
+        console.log("CART: REMOVEITEMFROMARRAY: products state=",this.state.products);
     }
 
     //remove from cart. runs action
@@ -148,7 +186,26 @@ class UserCart extends Component {
         this.props.dispatch(removeCartItem(product))
         .then((payload)=>{
 
-            this.updateState(payload);
+            console.log("CART: PAYLOAD JUST ARRIVED FROM REMOVE=", payload.payload);
+            console.log("CART: state.products BEFORE REMOVE=", this.state.products);
+
+            let index=-1;
+            let products= this.state.products;
+            let found=false;
+
+            products.forEach((item, i) => {
+
+                index= this.findIndex(item, payload.payload);
+            
+                console.log("CART: index found=", index, " i=",i);
+
+                if (index === -1 && !found) {
+                    this.removeItemFromArray(i);
+                    found=true;
+                }
+            })
+
+            // this.updateState(payload);
 
             if(this.props.cart.cart.length <= 0){//if removed last item from cart
                 this.setState({
@@ -158,23 +215,26 @@ class UserCart extends Component {
                 this.calculateTotal(this.state.products);
             }
         })
+        this.setState({loading:false});
     }
 
-    //Compares current state with props and returns true if no change
-    compareProductQuantity(product){
-        console.log("compareProductQuantity: PRODUCT=",product);
-        console.log("compareProductQuantity:  this.props.cart.cart=", this.props.cart.cart);
-        let result=false;
-        this.props.cart.cart.forEach(item=>{
-            if (item.product_Id===product.product_Id && 
-                item.size===product.size && 
-                item.color===product.color && 
-                item.quantity===product.quantity) 
-                result=true;
-        })
-        return result;
-    }
-
+    //when there are no items in the cart
+    showNoItemMessage = () =>(
+        <div className="cart_no_items">
+            <FontAwesomeIcon icon={faFrown}/>
+            <div>
+                You have no items
+            </div>
+            <div className="continue-shopping">
+                <MyButton 
+                    type="default"
+                    linkTo="/"
+                    title="Continue Shopping"
+                    altClass="cart_remove_btn"
+                />
+            </div>
+        </div>
+    )
 
     //remove from cart. runs action
     updateCart = (id, size, color, quantity) => {
@@ -201,24 +261,20 @@ class UserCart extends Component {
         })
     }
 
-    //when there are no items in the cart
-    showNoItemMessage = () =>(
-        <div className="cart_no_items">
-            <FontAwesomeIcon icon={faFrown}/>
-            <div>
-                You have no items
-            </div>
-            <div className="continue-shopping">
-                <MyButton 
-                    type="default"
-                    linkTo="/"
-                    title="Continue Shopping"
-                    altClass="cart_remove_btn"
-                />
-            </div>
-        </div>
-    )
+    //updates state after actions
+    updateState(payload){
 
+        console.log("cart: this.props.cart.cartDetail=",this.props.cart);
+        this.setState({products:this.props.cart.cartDetail.map(element => element)});
+
+        console.log("cart.js: responseFromServer=",payload);
+        console.log("cart.js: this.state.products=",this.state.products);
+        if(this.state.products.length > 0){//if there are products calc total
+            this.calculateTotal(this.state.products);
+        }
+        this.setState({loading:false});
+    }
+    
     render() {
         return (
                 <div className="page_cart">

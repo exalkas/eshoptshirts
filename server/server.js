@@ -77,70 +77,11 @@ let storage = multer.diskStorage({
     filename:(req,file,cb)=>{ //creates a filename for the file
         cb(null,`${Date.now()}_${file.originalname}`) //adds to original filename, date. check docs if needed
     },
-
-    //If files need to be filtered. eg only jpg are accepted
-
-    // fileFilter:(req,file,cb)=>{
-
-    //     const ext = path.extname(file.originalname) //check extension
-    //     if(ext !== '.jpg' && ext !== '.png'){
-    //         return cb(res.status(400).end('only jpg, png is allowed'),false);
-    //     }
-
-    //     cb(null,true)
-    // }
 });
 
-// //=================================
-// //             ADMIN UPLOADS
-// //=================================
-
-// const upload = multer({
-//     storage: multerS3({
-//       s3: s3,
-//       bucket: 'eshoptshirts',
-//       acl: 'public-read',
-//       metadata: function (req, file, cb) {
-//         cb(null, {fieldName: file.fieldname});
-//       },
-//       key: function (req, file, cb) {
-//         cb(null, Date.now().toString())
-//       }
-//     })
-//   })
-  
-//   module.exports = upload;
-
-// ///////////////////////////////////////
-
-// const uploadLocal = multer({storage:storage }).single('file') //single for 1 file, check docs
-
-// //api for user to upload files
-// app.post('/api/users/uploadfile',auth,admin,(req,res)=>{
-//     upload(req,res,(err)=>{ //this function is declared above
-//         if(err){ //return error
-//             return res.json({success:false,err})
-//         }
-//         return res.json({success:true})
-//     })
-// })
-
-// //api for admin to return all files
-// app.get('/api/users/admin_files',auth,admin,(req,res)=>{
-//     const dir = path.resolve(".")+'/uploads/'; //returns app path and adds destination path. should be parameter
-//     fs.readdir(dir,(err,items)=>{ //read dir from above
-//         return res.status(200).send(items); //and send back what found
-//     })
-// })
-
-// //api to return files that are asked for downloading
-// app.get('/api/users/download/:id',auth,admin,(req,res)=>{
-//     const file = path.resolve(".")+`/uploads/${req.params.id}`; //find file path from id
-//     res.download(file) //send file back. download is a function from express
-// })
 
 //=================================
-//             PRODUCTS
+//            01 PRODUCTS
 //=================================
 
 //Get all products
@@ -339,7 +280,7 @@ app.post('/api/products/updateProduct', auth, admin, async (req, res) => {
 });
 
 //=================================
-//             CART
+//           02 CART
 //=================================
 
 //add to cart
@@ -503,35 +444,42 @@ app.post('/api/cart/removeFromCart',async (req,res)=>{
 
     try {
 
-        const removed= await Cart.findOneAndUpdate(
+        const removedProduct= await Cart.findOneAndUpdate(
             {_id: cartToken }, //get the cart
             { "$pull": //remove item from collection
                 { "products": {"product_Id":mongoose.Types.ObjectId(product.product_Id), "color":product.color, "size":product.size} } //get products' id from db 
             },{new: true});
+
+            const cart=removedProduct.products;
+
+            console.log("API removeFromCart: REMOVEDPRODUCT=", cart);
+
+            return res.status(200).json(cart);
             
-        const doc= await Cart.findOne({_id:cartToken});            
+        // const doc= await Cart.findOne({_id:cartToken});            
         
-        console.log("API removeFromCart: PRODUCTS after update (doc)=", doc.products);
+        // console.log("API removeFromCart: PRODUCTS after update (doc)=", doc.products);
 
-        let cart = doc.products; //cart from db
-        let array = cart.map(item=>{ //loop through cart and return array with product ids
-            return mongoose.Types.ObjectId(item.product_Id)
-        });
+        // let cart = doc.products; //cart from db
+        // let array = cart.map(item=>{ //loop through cart and return array with product ids
+        //     return mongoose.Types.ObjectId(item.product_Id)
+        // });
 
-        let cartDetail={};
+        // let cartDetail={};
 
-        if (array.length > 0) {
-            cartDetail= await Products. //find products
-            find({'_id':{ $in: array }}). //loop through array
-            populate('category'). 
-            populate('department');
-        }
+        // if (array.length > 0) {
+        //     cartDetail= await Products. //find products
+        //     find({'_id':{ $in: array }}). //loop through array
+        //     populate('category'). 
+        //     populate('department');
+        // }
         
+        // console.log("API removeFromCart: CARTDETAIL=", cartDetail);
         
-        return res.status(200).json({
-            cartDetail,
-            cart
-        })
+        // return res.status(200).json({
+        //     cartDetail,
+        //     cart
+        // })
 
     } catch(err) {
         if (err) res.status(400).send(err);
@@ -656,7 +604,7 @@ app.post('/api/cart/successBuy',async (req,res)=>{
 
 
 //=================================
-//              USERS
+//            03 USERS
 //=================================
 
 //api in case user has forgoten user name . receives an email from client
@@ -825,7 +773,7 @@ app.post('/api/users/getOrderHistory',auth,(req,res) => {
 })
 
 //=================================
-//              CATEGORIES
+//           04 CATEGORIES
 //=================================
 
 //Add a cateogry, Admin only 
@@ -850,7 +798,7 @@ app.get('/api/products/categories',(req,res)=>{
 })
 
 //=================================
-//              DEPARTMENTS
+//             05 DEPARTMENTS
 //=================================
 
 //Add departments, admin only
@@ -875,7 +823,7 @@ app.get('/api/products/departments',(req,res)=>{
 })
 
 //=================================
-//              SHIPPING
+//             06 SHIPPING
 //=================================
 
 // get shipping
@@ -957,7 +905,7 @@ app.post('/api/shipping/removeShipping', auth, admin, async (req, res) => {
 
 });
 //=================================
-//              COLORS
+//            07 COLORS
 //=================================
 
 app.get('/api/colors/getColors',auth, admin, async (req, res) => {
@@ -1010,7 +958,7 @@ app.post('/api/colors/removeColor',auth, admin, async (req, res) => {
 });
 
 //=================================
-//              SIZE
+//             08 SIZE
 //=================================
 
 app.get('/api/size/getSize',auth, admin, async (req,res) => {
@@ -1067,7 +1015,7 @@ app.post('/api/size/removeSize', auth, admin, async (req, res) => {
     }
 })
 //=================================
-//              FOOTER
+//            09 FOOTER
 //=================================
 //get footer data
 app.get('/api/site/site_data',(req,res)=>{
@@ -1092,6 +1040,9 @@ app.post('/api/site/site_data',auth,admin,(req,res)=>{
         }
     )
 })
+//=================================
+//          APIS END
+//=================================
 
 // DEFAULT - MUST BE AT THE END!
 //if route cannot be found - works only in production

@@ -8,11 +8,11 @@ const RenderProducts = (props) => {
                 <table>
                     <thead>
                         <tr>
-                            <th>name</th>
-                            <th>size</th>
-                            <th>color</th>
-                            <th>quantity</th>
-                            <th>price</th>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
                         </tr>
                     </thead>
                     <tbody>

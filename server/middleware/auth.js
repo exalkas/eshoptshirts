@@ -8,6 +8,8 @@ const { Customer } = require('./../models/customers');
  */
 let auth = (req,res,next) => {
     
+    console.log("AUTH: req.cookies.w_auth", req.cookies.w_auth);
+
     let token = req.cookies.w_auth; //read the cookie
 
     //Is token ok?

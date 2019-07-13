@@ -76,26 +76,7 @@ export function removeCartItem(product){
 
     const request = axios.post(`${CART_SERVER}/removeFromCart`,product)
                     .then(response => {
-                        // console.log("action: removeCartItem: data.cart",response.data.cart);
-                        // console.log("action: removeCartItem: data.cartdetail",response.data.cartDetail);
-
-                        // let tmpArr=[];
-
-                        // userCart.forEach(element => { // build cart details with id and all details
-                        //     tmpArr.push({
-                        //         id: response.data.find(product_details => product_details._id===element.product_Id)._id,
-                        //         name: response.data.find(product_details => product_details._id===element.product_Id).name,
-                        //         price: response.data.find(product_details => product_details._id===element.product_Id).price,
-                        //         image: response.data.find(product_details => product_details._id===element.product_Id).images,
-                        //         size: element.size,
-                        //         color: element.color,
-                        //         quantity: element.quantity
-                        //     })
-                        // });
-                        // console.log("action getCartItems: AFTER tmparr=",tmpArr);
-                        // return tmpArr;
-
-                        
+                        console.log("action: removeCartItem: response.data",response.data);
                         return response.data;
                     })
 

@@ -151,9 +151,8 @@ class Checkout extends Component {
 
                 let tmpArr=[];
                 
-                response.payload.forEach(item => {
+                response.payload.shipping.forEach(item => {
                     tmpArr.push({ // add only name and price of each shipping method
-                        
                             name:item.shipping_type,
                             price:item.shipping_cost
                         })
@@ -309,17 +308,6 @@ class Checkout extends Component {
                                 </div>
                             </div>
                         </Dialog>
-                         {/* { this.state
-                            <div className="cart_success">
-                                <FontAwesomeIcon icon={faSmile}/>
-                                <div>
-                                    THANK YOU!
-                                </div>
-                                <div>
-                                    YOUR ORDER IS NOW COMPLETE!!!
-                                </div>
-                            </div>
-                         } */}
                             <div className="left">
                                 <h2>Personal information</h2>
                                     <div className="form_block_two">
@@ -392,7 +380,7 @@ class Checkout extends Component {
                             </span>
                         </div>
                         <div className="checkout_products">
-                            <h2>Grant Total:&nbsp;</h2><span>{this.state.grandTotal}€</span>
+                            <h2>Grand Total:&nbsp;</h2><span>{this.state.grandTotal}€</span>
                         </div>
                         
                         {

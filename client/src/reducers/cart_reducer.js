@@ -22,9 +22,7 @@ export default function(state={},action){
             return {...state, cartDetail:action.payload}
         case REMOVE_CART_ITEM: //was user related
             console.log("reducer REMOVE_CART_ITEM: action.payload=",action.payload);
-            return {
-                ...state,
-                cart: action.payload.cart
+            return {...state, cart: action.payload
             }
         case UPDATE_CART_ITEM:
             return {

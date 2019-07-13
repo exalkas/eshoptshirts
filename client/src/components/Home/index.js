@@ -7,7 +7,7 @@ import HomeSlider from './home_slider';
 import { price } from '../utils/Form/fixed_categories';//just fixed values
 
 import { connect } from 'react-redux';
-import { getProductsToShop ,getProductsBestSelling,getProductsNewest, getCategories, getDepartments } from '../../actions/products_actions';
+import { getProductsToShop ,getProductsBestSelling,getProductsNewest, getCategories, getDepartments, getColors, getSize } from '../../actions/products_actions';
 import { getCart } from '../../actions/cart_actions';
 
 import CollapseCheckbox from '../utils/collapseCheckbox';
@@ -41,6 +41,8 @@ class Shop extends Component {
     componentDidMount(){
         this.props.dispatch(getDepartments());
         this.props.dispatch(getCategories());
+        this.props.dispatch(getColors());
+        this.props.dispatch(getSize());
 
         this.loadProducts();
 
